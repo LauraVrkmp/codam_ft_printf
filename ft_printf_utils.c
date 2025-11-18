@@ -1,17 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   ft_printf.h                                        :+:    :+:            */
+/*   ft_printf_utils.c                                  :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: laveerka <laveerka@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2025/11/14 05:52:00 by laveerka      #+#    #+#                 */
-/*   Updated: 2025/11/18 13:03:10 by laveerka      ########   odam.nl         */
+/*   Created: 2025/11/18 13:01:42 by laveerka      #+#    #+#                 */
+/*   Updated: 2025/11/18 13:02:42 by laveerka      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <unistd.h>
-#include <stdio.h>
-#include <stdarg.h>
+#include "ft_printf.h"
 
-size_t	ft_strlen(const char *s);
+size_t	ft_strlen(const char *s)
+{
+	int	i;
+
+	i = 0;
+	while (*s)
+	{
+		i++;
+		s++;
+	}
+	return (i);
+}
