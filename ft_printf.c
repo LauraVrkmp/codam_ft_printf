@@ -6,7 +6,7 @@
 /*   By: laveerka <laveerka@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/11/14 05:51:22 by laveerka      #+#    #+#                 */
-/*   Updated: 2025/11/18 13:03:55 by laveerka      ########   odam.nl         */
+/*   Updated: 2025/11/19 14:52:34 by laveerka      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,8 @@ static int	print_id(char format, va_list args)
 		format_length = print_char_perc(format, args);
 	else if (format == 's')
 		format_length = print_string(args);
+	else if (format == 'p')
+		format_length = print_pointer(args);
 	return (format_length);	
 }
 
@@ -77,10 +79,16 @@ int	ft_printf(const char *format, ...)
 int	main(void)
 {
 	int	length;
+	int	value;
+	int	*ptr;
 
+	value = 5;
+	ptr = &value;
 	length = ft_printf("Testing %c\n", 'a');
 	printf("%d\n", length);
 	length = ft_printf("Testing %s\n", "including text");
+	printf("%d\n", length);
+	length = ft_printf("Testing %p\n", ptr);
 	printf("%d\n", length);
 	return (0);
 }
