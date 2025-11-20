@@ -6,7 +6,7 @@
 /*   By: laveerka <laveerka@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/11/14 05:51:22 by laveerka      #+#    #+#                 */
-/*   Updated: 2025/11/19 14:52:34 by laveerka      ########   odam.nl         */
+/*   Updated: 2025/11/20 20:54:14 by laveerka      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,12 @@ static int	print_string(va_list arg)
 	int		length;
 
 	str = va_arg(arg, char *);
+	if (str == NULL)
+	{
+		length = ft_strlen("(null)");
+		write(1, "(null)", length);
+		return (length);
+	}
 	length = ft_strlen(str);
 	write(1, str, length);
 	return (length);
@@ -41,14 +47,17 @@ static int	print_id(char format, va_list args)
 {
 	int	format_length;
 
-	format_length = 0;
 	if (format == 'c' || format == '%')
 		format_length = print_char_perc(format, args);
 	else if (format == 's')
 		format_length = print_string(args);
 	else if (format == 'p')
 		format_length = print_pointer(args);
-	return (format_length);	
+	else if (format == 'd' || format == 'i' || format == 'u')
+		format_length = print_number(format, args);
+	else if (format == 'x' || format == 'X')
+		format_length = print_hex(format, args);
+	return (format_length);
 }
 
 int	ft_printf(const char *format, ...)
@@ -76,19 +85,26 @@ int	ft_printf(const char *format, ...)
 	return (char_count);
 }
 
-int	main(void)
+/* int	main(void)
 {
 	int	length;
-	int	value;
-	int	*ptr;
 
-	value = 5;
-	ptr = &value;
-	length = ft_printf("Testing %c\n", 'a');
-	printf("%d\n", length);
-	length = ft_printf("Testing %s\n", "including text");
-	printf("%d\n", length);
-	length = ft_printf("Testing %p\n", ptr);
+	length = printf(" %p %p \n", 0, 0);
 	printf("%d\n", length);
 	return (0);
-}
+} */
+
+/* int	main(void)
+{
+	int	length;
+
+	length = ft_printf("Testing %x\n", LONG_MAX);
+	printf("%d\n", length);
+	length = printf("Testing %x\n", LONG_MAX);
+	printf("%d\n", length);
+	length = ft_printf("Testing %X\n", LONG_MIN);
+	printf("%d\n", length);
+	length = printf("Testing %X\n", LONG_MIN);
+	printf("%d\n", length);
+	return (0);
+} */
