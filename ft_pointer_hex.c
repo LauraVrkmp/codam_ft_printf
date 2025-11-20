@@ -6,7 +6,7 @@
 /*   By: laveerka <laveerka@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/11/19 14:50:20 by laveerka      #+#    #+#                 */
-/*   Updated: 2025/11/19 16:00:09 by laveerka      ########   odam.nl         */
+/*   Updated: 2025/11/20 13:14:34 by laveerka      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,8 +28,9 @@ static int	convert_write_hex(unsigned long addr)
 		str[i--] = hex_values[addr % 16];
 		addr /= 16;
 	}
-	
-	printf("%s\n", str);
+	i++;
+	while (str[i])
+		length += write(1, &str[i++], 1);
 	return (length);
 }
 
