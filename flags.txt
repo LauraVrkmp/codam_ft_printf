@@ -1,0 +1,6 @@
+minus:	c	s	p	d	i	u	x	X
+zero:				d	i	u	x	X
+period:		s		d	i	u	x	X
+hash:							x	X
+space:		s		d	i
+plus:				d	i
