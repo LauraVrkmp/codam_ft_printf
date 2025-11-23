@@ -6,32 +6,38 @@
 #    By: laveerka <laveerka@student.codam.nl>         +#+                      #
 #                                                    +#+                       #
 #    Created: 2025/11/14 05:52:06 by laveerka      #+#    #+#                  #
-#    Updated: 2025/11/20 18:36:02 by laveerka      ########   odam.nl          #
+#    Updated: 2025/11/23 01:21:59 by laveerka      ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = libftprintf.a
 
-SRCS = ft_number.c ft_pointer_hex.c ft_printf_utils.c ft_printf.c
-
+SRCS = ft_number.c ft_pointer_hex.c ft_printf.c ft_printf_utils.c
 OBJS = $(SRCS:.c=.o)
+
+SRCS_BONUS = ft_char_string_bonus.c ft_itoa_atoi_bonus.c ft_number_bonus.c \
+	ft_pointer_hex_bonus.c ft_printf_bonus.c ft_printf_utils_bonus.c
+OBJS_BONUS = $(SRCS_BONUS:.c=.o)
 
 CFLAGS = -Wall -Wextra -Werror
 
-all: $(NAME)
+all: fclean $(NAME)
 
 $(NAME): $(OBJS)
 	ar rcs $(NAME) $(OBJS)
 
-%.0: %.c
+bonus: fclean $(OBJS_BONUS)
+	ar rcs $(NAME) $(OBJS_BONUS)
+
+%.o: %.c
 	cc $(CFLAGS) -c $< -o $@
 
 clean:
-	rm -f $(OBJS)
+	rm -f $(OBJS) $(OBJS_BONUS)
 
 fclean: clean
 	rm -f $(NAME)
 
 re: fclean all
 
-.PHONY: all clean fclean re
+.PHONY: all bonus clean fclean re

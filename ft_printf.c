@@ -6,7 +6,7 @@
 /*   By: laveerka <laveerka@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/11/14 05:51:22 by laveerka      #+#    #+#                 */
-/*   Updated: 2025/11/20 20:54:14 by laveerka      ########   odam.nl         */
+/*   Updated: 2025/11/23 09:18:15 by laveerka      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,13 +98,13 @@ int	ft_printf(const char *format, ...)
 {
 	int	length;
 
-	length = ft_printf("Testing %x\n", LONG_MAX);
+	length = ft_printf("Testing %x\n", 583);
 	printf("%d\n", length);
-	length = printf("Testing %x\n", LONG_MAX);
+	length = printf("Testing %x\n", 583);
 	printf("%d\n", length);
-	length = ft_printf("Testing %X\n", LONG_MIN);
+	length = ft_printf("Testing %X\n", 583);
 	printf("%d\n", length);
-	length = printf("Testing %X\n", LONG_MIN);
+	length = printf("Testing %X\n", 583);
 	printf("%d\n", length);
 	return (0);
 } */

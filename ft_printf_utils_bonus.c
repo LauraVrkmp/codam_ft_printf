@@ -6,7 +6,7 @@
 /*   By: laveerka <laveerka@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/11/22 13:54:41 by laveerka      #+#    #+#                 */
-/*   Updated: 2025/11/22 13:54:42 by laveerka      ########   odam.nl         */
+/*   Updated: 2025/11/22 23:22:29 by laveerka      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,4 +49,10 @@ void	ft_bzero(void *s, size_t n)
 	p = s;
 	while (i < n)
 		p[i++] = '\0';
+}
+
+int	spacing_zeros(int *spacing, char filler)
+{
+	(*spacing)--;
+	return (write(1, &filler, 1));
 }

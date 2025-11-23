@@ -6,7 +6,7 @@
 /*   By: laveerka <laveerka@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/11/22 13:54:32 by laveerka      #+#    #+#                 */
-/*   Updated: 2025/11/22 13:54:33 by laveerka      ########   odam.nl         */
+/*   Updated: 2025/11/23 04:25:14 by laveerka      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,9 @@ static int	print_id(t_flags *type, va_list args)
 {
 	int	format_length;
 
-	if (type->type == 'c' || type->type == '%')
+	if (type->type == '%')
+		format_length = write(1, "%", 1);
+	else if (type->type == 'c')
 		format_length = print_char_perc(type, args);
 	else if (type->type == 's')
 		format_length = print_string(type, args);
@@ -74,6 +76,7 @@ static const char	*read_format(t_flags **type, const char *format)
 		}
 		format++;
 	}
+	return (format);
 }
 
 int	ft_printf(const char *format, ...)
@@ -102,16 +105,16 @@ int	ft_printf(const char *format, ...)
 	return (char_count);
 }
 
-int	main(void)
+/* int	main(void)
 {
 	int	length;
 
-	length = printf("a%10.9sa\n", "abcd");
+	length = printf("%3x\n", 0);
 	printf("%d\n", length);
-	length = ft_printf("a%10.9sa\n", "abcd");
+	length = ft_printf("%3x\n", 0);
 	printf("%d\n", length);
 	return (0);
-}
+} */
 
 /* int	main(void)
 {

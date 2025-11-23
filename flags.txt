@@ -4,3 +4,5 @@ period:		s		d	i	u	x	X
 hash:							x	X
 space:		s		d	i
 plus:				d	i
+
+malloc checks
