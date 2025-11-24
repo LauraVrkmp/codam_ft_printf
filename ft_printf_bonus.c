@@ -6,7 +6,7 @@
 /*   By: laveerka <laveerka@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/11/22 13:54:32 by laveerka      #+#    #+#                 */
-/*   Updated: 2025/11/24 13:54:51 by laveerka      ########   odam.nl         */
+/*   Updated: 2025/11/24 14:04:34 by laveerka      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,10 +35,14 @@ static void	specify_flags(t_flags *type, char format)
 {
 	if (format == '-')
 		type->minus = 1;
-	if (format == '0' && type->zero == 0)
+	if (format == '0')
 		type->zero = 1;
 	if (format == '.')
+	{
 		type->period = 1;
+		if (type->zero)
+			type->zero = 0;
+	}
 	if (format == '#')
 		type->hash = 1;
 	if (format == ' ')
@@ -114,9 +118,7 @@ int	ft_printf(const char *format, ...)
 {
 	int	length;
 
-	length = ft_printf("%-15.5i", -5000);
-	printf("%d\n", length);
-	length = printf("%-15.5i", -5000);
+	length = ft_printf("%-1c" , 120);
 	printf("%d\n", length);
 	return (0);
 } */

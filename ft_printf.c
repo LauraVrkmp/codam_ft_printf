@@ -6,7 +6,7 @@
 /*   By: laveerka <laveerka@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/11/14 05:51:22 by laveerka      #+#    #+#                 */
-/*   Updated: 2025/11/24 13:32:55 by laveerka      ########   odam.nl         */
+/*   Updated: 2025/11/24 14:04:29 by laveerka      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,7 +118,7 @@ int	ft_printf(const char *format, ...)
 {
 	int	length;
 
-	length = ft_printf("%197c" ,7);
+	length = ft_printf("%-1c" , 120);
 	printf("%d\n", length);
 	return (0);
 } */
