@@ -6,7 +6,7 @@
 /*   By: laveerka <laveerka@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/11/22 13:54:20 by laveerka      #+#    #+#                 */
-/*   Updated: 2025/11/24 10:42:51 by laveerka      ########   odam.nl         */
+/*   Updated: 2025/11/24 13:51:46 by laveerka      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ static int	write_length(char *num_str, t_flags *type)
 		written += write(1, num_str + 1, ft_strlen(num_str) - 1);
 	else
 		written += write(1, num_str, ft_strlen(num_str));
-	if (prec > num_length)
+	if (prec >= num_length)
 		while (type->width > (prec + type->plus + type->space + type->neg) \
 && type->minus)
 			written += spacing_zeros(&type->width, ' ');
