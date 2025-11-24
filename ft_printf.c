@@ -6,7 +6,7 @@
 /*   By: laveerka <laveerka@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/11/14 05:51:22 by laveerka      #+#    #+#                 */
-/*   Updated: 2025/11/24 11:03:41 by laveerka      ########   odam.nl         */
+/*   Updated: 2025/11/24 12:13:19 by laveerka      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,22 +31,6 @@ static int	print_id(t_flags *type, va_list args)
 	return (format_length);
 }
 
-static void	specify_flags(t_flags *type, char format)
-{
-	if (format == '-')
-		type->minus = 1;
-	if (format == '0' && type->zero == 0)
-		type->zero = 1;
-	if (format == '.')
-		type->period = 1;
-	if (format == '#')
-		type->hash = 1;
-	if (format == ' ')
-		type->space = 1;
-	if (format == '+')
-		type->plus = 1;
-}
-
 static int	find_type(char format)
 {
 	if (format == 'c' || format == 's' || format == 'p' || \
@@ -66,7 +50,6 @@ static const char	*read_format(t_flags **type, const char *format)
 	(*type)->width = -1;
 	while (*format)
 	{
-		specify_flags(*type, *format);
 		if ((*format >= '1' && *format <= '9') || \
 ((*type)->period && *format == '0'))
 			format += parse_width_prec(*type, format) - 1;
