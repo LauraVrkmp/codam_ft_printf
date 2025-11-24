@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   ft_char_string_bonus.c                             :+:    :+:            */
+/*   ft_char_string.c                                   :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: laveerka <laveerka@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2025/11/22 13:54:07 by laveerka      #+#    #+#                 */
-/*   Updated: 2025/11/24 10:38:47 by laveerka      ########   odam.nl         */
+/*   Created: 2025/11/24 11:01:26 by laveerka      #+#    #+#                 */
+/*   Updated: 2025/11/24 11:01:46 by laveerka      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_printf_bonus.h"
+#include "ft_printf.h"
 
 int	print_char(t_flags *type, va_list arg)
 {

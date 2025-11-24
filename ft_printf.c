@@ -6,64 +6,87 @@
 /*   By: laveerka <laveerka@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/11/14 05:51:22 by laveerka      #+#    #+#                 */
-/*   Updated: 2025/11/23 09:18:15 by laveerka      ########   odam.nl         */
+/*   Updated: 2025/11/24 11:03:41 by laveerka      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-static int	print_char_perc(char format, va_list arg)
-{
-	int	argument;
-
-	if (format == '%')
-		write(1, "%", 1);
-	else
-	{
-		argument = va_arg(arg, int);
-		write(1, &argument, 1);
-	}
-	return (1);
-}
-
-static int	print_string(va_list arg)
-{
-	char	*str;
-	int		length;
-
-	str = va_arg(arg, char *);
-	if (str == NULL)
-	{
-		length = ft_strlen("(null)");
-		write(1, "(null)", length);
-		return (length);
-	}
-	length = ft_strlen(str);
-	write(1, str, length);
-	return (length);
-}
-
-static int	print_id(char format, va_list args)
+static int	print_id(t_flags *type, va_list args)
 {
 	int	format_length;
 
-	if (format == 'c' || format == '%')
-		format_length = print_char_perc(format, args);
-	else if (format == 's')
-		format_length = print_string(args);
-	else if (format == 'p')
-		format_length = print_pointer(args);
-	else if (format == 'd' || format == 'i' || format == 'u')
-		format_length = print_number(format, args);
-	else if (format == 'x' || format == 'X')
-		format_length = print_hex(format, args);
+	if (type->type == '%')
+		format_length = write(1, "%", 1);
+	else if (type->type == 'c')
+		format_length = print_char(type, args);
+	else if (type->type == 's')
+		format_length = print_string(type, args);
+	else if (type->type == 'p')
+		format_length = print_pointer(type, args);
+	else if (type->type == 'd' || type->type == 'i' || type->type == 'u')
+		format_length = print_number(type, args);
+	else if (type->type == 'x' || type->type == 'X')
+		format_length = print_hex(type, args);
 	return (format_length);
+}
+
+static void	specify_flags(t_flags *type, char format)
+{
+	if (format == '-')
+		type->minus = 1;
+	if (format == '0' && type->zero == 0)
+		type->zero = 1;
+	if (format == '.')
+		type->period = 1;
+	if (format == '#')
+		type->hash = 1;
+	if (format == ' ')
+		type->space = 1;
+	if (format == '+')
+		type->plus = 1;
+}
+
+static int	find_type(char format)
+{
+	if (format == 'c' || format == 's' || format == 'p' || \
+format == 'd' || format == 'i' || format == 'u' || \
+format == 'x' || format == 'X' || format == '%')
+		return (1);
+	return (0);
+}
+
+static const char	*read_format(t_flags **type, const char *format)
+{
+	*type = malloc(sizeof(t_flags));
+	if (*type == NULL)
+		return (NULL);
+	ft_bzero(*type, sizeof(t_flags));
+	(*type)->precision = -1;
+	(*type)->width = -1;
+	while (*format)
+	{
+		specify_flags(*type, *format);
+		if ((*format >= '1' && *format <= '9') || \
+((*type)->period && *format == '0'))
+			format += parse_width_prec(*type, format) - 1;
+		if (find_type(*format))
+		{
+			(*type)->type = *format;
+			format++;
+			return (format);
+		}
+		format++;
+	}
+	return (format);
 }
 
 int	ft_printf(const char *format, ...)
 {
 	va_list	args;
+	t_flags	*type;
 	int		char_count;
+	int		length;
 
 	char_count = 0;
 	va_start(args, format);
@@ -71,15 +94,17 @@ int	ft_printf(const char *format, ...)
 	{
 		if (*format == '%')
 		{
-			format++;
-			char_count += print_id(*format, args);
+			format = read_format(&type, ++format);
+			if (type == NULL)
+				return (-1);
+			length = print_id(type, args);
+			if (length == -1)
+				return (-1);
+			char_count += length;
+			free(type);
 		}
 		else
-		{
-			write(1, format, 1);
-			char_count++;
-		}
-		format++;
+			char_count += write(1, format++, 1);
 	}
 	va_end(args);
 	return (char_count);
@@ -89,22 +114,13 @@ int	ft_printf(const char *format, ...)
 {
 	int	length;
 
-	length = printf(" %p %p \n", 0, 0);
+	length = ft_printf("Testing %x\n", LONG_MAX);
 	printf("%d\n", length);
-	return (0);
-} */
-
-/* int	main(void)
-{
-	int	length;
-
-	length = ft_printf("Testing %x\n", 583);
+	length = printf("Testing %x\n", LONG_MAX);
 	printf("%d\n", length);
-	length = printf("Testing %x\n", 583);
+	length = ft_printf("Testing %X\n", LONG_MIN);
 	printf("%d\n", length);
-	length = ft_printf("Testing %X\n", 583);
-	printf("%d\n", length);
-	length = printf("Testing %X\n", 583);
+	length = printf("Testing %X\n", LONG_MIN);
 	printf("%d\n", length);
 	return (0);
 } */

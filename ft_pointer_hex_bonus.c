@@ -6,58 +6,23 @@
 /*   By: laveerka <laveerka@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/11/22 13:54:24 by laveerka      #+#    #+#                 */
-/*   Updated: 2025/11/23 05:36:57 by laveerka      ########   odam.nl         */
+/*   Updated: 2025/11/24 10:51:00 by laveerka      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf_bonus.h"
 
-static int	fill_str(char **str, char format, unsigned long long addr, \
-unsigned int number)
+static int	format_start_hex(t_flags *type, int hex_length, char *str, int i)
 {
-	char	*hex_values;
-	int		i;
-
-	i = 19;
-	if (format == 'x' || format == 'p')
-		hex_values = "0123456789abcdef";
-	else if (format == 'X')
-		hex_values = "0123456789ABCDEF";
-	if (format == 'x' || format == 'X')
-	{
-		while (number > 0)
-		{
-			(*str)[i--] = hex_values[number % 16];
-			number /= 16;
-		}
-	}
-	else if (format == 'p')
-	{
-		while (addr > 0)
-		{
-			(*str)[i--] = hex_values[addr % 16];
-			addr /= 16;
-		}
-	}
-	return (i);
-}
-
-static int	write_hex(t_flags *type, char *str, int i)
-{
-	int	hex_length;
 	int	length;
-	int	prec;
 
 	length = 0;
-	prec = type->precision;
-	hex_length = ft_strlen(str + i);
-	if (type->type == 'p' || (type->hash && str[i] != '0'))
-		hex_length += 2;
 	if (type->precision > hex_length)
 		while (type->width > type->precision && !type->minus)
 			length += spacing_zeros(&type->width, ' ');
 	else if (!type->zero || (type->zero && type->period))
-		while (type->width > (hex_length - (type->num_zero && type->period && type->precision <= 0)) && !type->minus)
+		while (type->width > (hex_length - (type->num_zero && type->period && \
+type->precision <= 0)) && !type->minus)
 			length += spacing_zeros(&type->width, ' ');
 	if (type->type == 'p' || (type->type == 'x' && type->hash && str[i] != '0'))
 		length += write(1, "0x", 2);
@@ -67,13 +32,29 @@ static int	write_hex(t_flags *type, char *str, int i)
 		length += spacing_zeros(&type->precision, '0');
 	while (type->width > hex_length && type->zero && !type->period)
 		length += spacing_zeros(&type->width, '0');
-	while (str[i] && !(type->period && type->precision <= 0 && str[i] == '0' && str[i + 1] == '\0'))
+	return (length);
+}
+
+static int	write_hex(t_flags *type, char *str, int i)
+{
+	int	hex_length;
+	int	length;
+	int	prec;
+
+	prec = type->precision;
+	hex_length = ft_strlen(str + i);
+	if (type->type == 'p' || (type->hash && str[i] != '0'))
+		hex_length += 2;
+	length = format_start_hex(type, hex_length, str, i);
+	while (str[i] && !(type->period && type->precision <= 0 && str[i] == '0' \
+&& str[i + 1] == '\0'))
 		length += write(1, &str[i++], 1);
 	if (prec > hex_length)
 		while (type->width > prec && type->minus)
 			length += spacing_zeros(&type->width, ' ');
 	else
-		while (type->width > (hex_length - (type->num_zero && type->period && type->precision <= 0)) && type->minus)
+		while (type->width > (hex_length - (type->num_zero && type->period && \
+type->precision <= 0)) && type->minus)
 			length += spacing_zeros(&type->width, ' ');
 	return (length);
 }
@@ -88,7 +69,7 @@ t_flags *type)
 	i = 20;
 	str = malloc(sizeof(char) * (i + 1));
 	if (str == NULL)
-		return (0);
+		return (-1);
 	str[i--] = '\0';
 	if (number == 0 && (type->type == 'x' || type->type == 'X'))
 	{
@@ -131,8 +112,7 @@ int	print_hex(t_flags *type, va_list arg)
 	unsigned int	num;
 	int				length;
 
-	length = 0;
 	num = va_arg(arg, unsigned int);
-	length += length_hex(0, num, type);
+	length = length_hex(0, num, type);
 	return (length);
 }

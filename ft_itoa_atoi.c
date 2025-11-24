@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   ft_itoa_atoi_bonus.c                               :+:    :+:            */
+/*   ft_itoa_atoi.c                                     :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: laveerka <laveerka@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2025/11/22 13:54:12 by laveerka      #+#    #+#                 */
-/*   Updated: 2025/11/24 10:29:02 by laveerka      ########   odam.nl         */
+/*   Created: 2025/11/24 11:02:24 by laveerka      #+#    #+#                 */
+/*   Updated: 2025/11/24 11:02:44 by laveerka      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_printf_bonus.h"
+#include "ft_printf.h"
 
 static void	ft_find_length_neg(long n, int *is_neg, int *length)
 {
