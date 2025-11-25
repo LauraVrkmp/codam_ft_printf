@@ -6,7 +6,7 @@
 /*   By: laveerka <laveerka@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/11/22 13:54:32 by laveerka      #+#    #+#                 */
-/*   Updated: 2025/11/24 14:04:34 by laveerka      ########   odam.nl         */
+/*   Updated: 2025/11/25 14:35:34 by laveerka      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ static int	print_id(t_flags *type, va_list args)
 		format_length = print_pointer(type, args);
 	else if (type->type == 'd' || type->type == 'i' || type->type == 'u')
 		format_length = print_number(type, args);
-	else if (type->type == 'x' || type->type == 'X')
+	else
 		format_length = print_hex(type, args);
 	return (format_length);
 }

@@ -6,7 +6,7 @@
 /*   By: laveerka <laveerka@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/11/24 11:02:24 by laveerka      #+#    #+#                 */
-/*   Updated: 2025/11/24 13:27:35 by laveerka      ########   odam.nl         */
+/*   Updated: 2025/11/25 14:34:19 by laveerka      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ char	*ft_itoa(int signednum, unsigned int unsignednum, char type)
 	length = 0;
 	if (type == 'd' || type == 'i')
 		nb = signednum;
-	else if (type == 'u')
+	else
 		nb = unsignednum;
 	ft_find_length_neg(nb, &is_neg, &length);
 	if (nb < 0)

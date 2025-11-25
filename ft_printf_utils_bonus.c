@@ -6,7 +6,7 @@
 /*   By: laveerka <laveerka@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/11/22 13:54:41 by laveerka      #+#    #+#                 */
-/*   Updated: 2025/11/24 10:24:38 by laveerka      ########   odam.nl         */
+/*   Updated: 2025/11/25 14:35:54 by laveerka      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ unsigned int number)
 	i = 19;
 	if (format == 'x' || format == 'p')
 		hex_values = "0123456789abcdef";
-	else if (format == 'X')
+	else
 		hex_values = "0123456789ABCDEF";
 	if (format == 'x' || format == 'X')
 	{

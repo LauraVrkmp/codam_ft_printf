@@ -6,7 +6,7 @@
 /*   By: laveerka <laveerka@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/11/22 13:54:20 by laveerka      #+#    #+#                 */
-/*   Updated: 2025/11/24 13:57:28 by laveerka      ########   odam.nl         */
+/*   Updated: 2025/11/25 14:34:43 by laveerka      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,7 @@ t_flags *type)
 		type->neg = 1;
 	if (type->type == 'd' || type->type == 'i')
 		num_str = ft_itoa(signednum, 0, type->type);
-	else if (type->type == 'u')
+	else
 		num_str = ft_itoa(0, unsignednum, type->type);
 	if (num_str == NULL)
 	{
@@ -102,7 +102,7 @@ int	print_number(t_flags *type, va_list arg)
 		signednum = va_arg(arg, int);
 		length = printing_number(signednum, 0, type);
 	}
-	else if (type->type == 'u')
+	else
 	{
 		unsignednum = va_arg(arg, unsigned int);
 		length = printing_number(0, unsignednum, type);
